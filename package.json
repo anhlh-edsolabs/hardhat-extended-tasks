@@ -1,6 +1,6 @@
 {
     "name": "hardhat-extended-tasks",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Utility tasks to use with Hardhat enviroment",
     "main": "index.js",
     "author": "Le Hoang Anh",
