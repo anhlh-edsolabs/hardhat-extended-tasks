@@ -66,6 +66,24 @@ If you only want to export the ABIs of specific contracts, use the `--only` flag
 npx hardhat export-abis --only Contract1,Contract2
 ```
 
+The task also accepts a `JSON` file containing a list of contracts to be processed. You can use the `--contract-list` parameter followed by the path to the JSON file.
+
+```shell
+npx hardhat export-abis --contract-list contractList.json
+```
+
+The `contractList.json` file should contain an array of contract names.
+
+```json
+[
+  "Contract1",
+  "Contract2",
+  "Contract3",
+  "Contract4",
+  "Contract5",
+]
+```
+
 ## License
 
 This plugin is released under the MIT License.
