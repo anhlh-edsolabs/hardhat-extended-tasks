@@ -1,0 +1,30 @@
+{
+    "name": "hardhat-extended-tasks",
+    "version": "1.0.0",
+    "description": "Utility tasks to use with Hardhat enviroment",
+    "main": "index.js",
+    "author": "Le Hoang Anh",
+    "license": "MIT",
+    "private": false,
+    "scripts": {
+        "test": "jest"
+    },
+    "keywords": [
+        "hardhat",
+        "hardhat-plugin",
+        "tasks",
+        "utils",
+        "ethereum",
+        "solidity",
+        "smart-contracts"
+    ],
+    "dependencies": {
+        "chalk": "4.1.2",
+        "hardhat": "^2.19.5",
+        "prettier": "^3.2.4"
+    },
+    "devDependencies": {
+        "jest": "^29.7.0",
+        "mock-fs": "^5.2.0"
+    }
+}
