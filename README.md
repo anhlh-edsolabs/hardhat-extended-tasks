@@ -6,7 +6,7 @@
 
 ## Introduction
 
-[![npm version](https://badge.fury.io/js/hardhat-extended-tasks)](https://badge.fury.io/js/hardhat-extended-tasks)
+[![npm version](https://badge.fury.io/js/hardhat-extended-tasks.svg)](https://badge.fury.io/js/hardhat-extended-tasks)
 
 The **`hardhat-extended-tasks`** npm package is a plugin for the Hardhat development environment that provides additional features and enhancements to streamline your Ethereum smart contract development process. This plugin expands the capabilities of Hardhat by introducing a new optional parameter for contract compilation and a custom task for exporting contract ABIs.
 
