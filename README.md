@@ -63,13 +63,13 @@ npx hardhat export-ABIs
 If you only want to export the ABIs of specific contracts, use the `--only` flag followed by a comma-separated list of contract names.
 
 ```shell
-npx hardhat export-abis --only Contract1,Contract2
+npx hardhat export-ABIs --only Contract1,Contract2
 ```
 
 The task also accepts a `JSON` file containing a list of contracts to be processed. You can use the `--contract-list` parameter followed by the path to the JSON file.
 
 ```shell
-npx hardhat export-abis --contract-list contractList.json
+npx hardhat export-ABIs --contract-list contractList.json
 ```
 
 The `contractList.json` file should contain an array of contract names.
