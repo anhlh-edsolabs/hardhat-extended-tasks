@@ -9,13 +9,13 @@ const { TASK_EXPORT_JSON_INPUT } = require("./tasks");
 
 task(
     TASK_EXPORT_JSON_INPUT,
-    "Exports the built JSON input for contract verification..."
+    "Exports the build-info JSON input for contract verification...",
 )
     .addOptionalParam(
         "exportFile",
-        "A JSON file that contains a list of contract names to be processed",
+        "Path to the JSON file containing the build info to export. For example: --export-file ./artifacts/build-info/...fbf5031228457aa...e21578.json. If not provided, all build info files will be exported.",
         undefined,
-        types.inputFile
+        types.inputFile,
     )
     .setAction(async (taskArgs, { config }) => {
         if (taskArgs.exportFile === undefined) {
@@ -29,7 +29,7 @@ task(
 
             if (allBuildInfoFiles.length === 0) {
                 error(
-                    chalk.bold.red("No build info found to export JSON input")
+                    chalk.bold.red("No build info found to export JSON input"),
                 );
                 return;
             } else {
@@ -47,7 +47,7 @@ const exportJsonInput = async (filePath) => {
         fs.readFileSync(path.resolve(filePath), {
             withFileTypes: true,
             recursive: true,
-        })
+        }),
     );
 
     const buildInfoInput = buildInfoData.input;
@@ -68,7 +68,7 @@ const exportJsonInput = async (filePath) => {
 
     const { dataFilePath } = await Utils.prepareDataFile(
         Utils.BUILT_JSON_INPUT_OUTPUT_DIR,
-        `${buildInfoName}.json`
+        `${buildInfoName}.json`,
     );
 
     await Utils.writeDataFile(dataFilePath, newData);
