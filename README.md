@@ -8,12 +8,13 @@
 
 [![npm version](https://badge.fury.io/js/hardhat-extended-tasks.svg)](https://badge.fury.io/js/hardhat-extended-tasks)
 
-The **`hardhat-extended-tasks`** npm package is a plugin for the Hardhat development environment that provides additional features and enhancements to streamline your Ethereum smart contract development process. This plugin expands the capabilities of Hardhat by introducing a new optional parameter for contract compilation and a custom task for exporting contract ABIs.
+The **`hardhat-extended-tasks`** npm package is a plugin for the Hardhat development environment that provides additional features and enhancements to streamline your Ethereum smart contract development process. This plugin expands the capabilities of Hardhat by introducing a new optional parameter for contract compilation, a custom task for exporting contract ABIs, and a task for exporting the Standard JSON input from contracts `build-info` JSON files.
 
 ## Features
 
 - **Selective Contract Compilation**: With the hardhat-extended-tasks plugin, you can instruct Hardhat to compile only the selected contracts, saving time and resources during development and testing.
 - **Contract ABI Export**: This plugin introduces a new task that allows you to export the ABIs (Application Binary Interfaces) of your contracts. You can choose to export all contract ABIs or selectively export specific contract ABIs based on your requirements.
+- **Contract Standard JSON Input Export**: The plugin now includes functionality to export the Standard JSON input from `build-info` JSON files, which is needed for contract verification on Blockscout or other Block explorer.
 
 ## Installation
 
@@ -83,6 +84,22 @@ The `contractList.json` file should contain an array of contract names.
   "Contract5",
 ]
 ```
+
+## Export Standard JSON Input
+
+To export the Standard JSON input from build info JSON files, use the **`export-json-input`** command. By default, it will process all build info files in the `build-info` folder and write the output to the `json-inputs` folder.
+
+```shell
+npx hardhat export-json-input
+```
+
+If you only want to process a specific file, you can provide the `export-file` parameter followed by the path to the file being processed.
+
+```shell
+npx hardhat export-json-input --export-file ./artifacts/build-info/...fbf5031228457aa...e21578.json
+```
+
+Please note that the build info JSON file should be located in the `build-info` folder.
 
 ## License
 
