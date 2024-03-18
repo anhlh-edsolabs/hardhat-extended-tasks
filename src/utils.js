@@ -5,6 +5,7 @@ const { log, error } = require("console");
 
 const ABI_OUTPUT_DIR = "./ABIs";
 const ABI_OUTPUT_EXTENSION = "_ABI.json";
+const BUILT_JSON_INPUT_OUTPUT_DIR = "./json-inputs";
 
 async function prepareDataFile(dataRootPath, fileName, loadContent = false) {
     try {
@@ -118,6 +119,7 @@ module.exports = {
         writeDataConcurrently,
         writeDataSequentially,
         ABI_OUTPUT_DIR,
+        BUILT_JSON_INPUT_OUTPUT_DIR,
     },
     handleFile,
     handlePromises,
