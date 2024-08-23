@@ -67,19 +67,25 @@ If you only want to export the ABIs of specific contracts, use the `--only` flag
 npx hardhat export-ABIs --only Contract1,Contract2
 ```
 
+Using with fully qualified contract name in case of multiple artifacts for the same contract name:
+
+```shell
+npx hardhat export-ABIs --only contracts/Contract1.sol:Contract1
+```
+
 The task also accepts a `JSON` file containing a list of contracts to be processed. You can use the `--contract-list` parameter followed by the path to the JSON file.
 
 ```shell
 npx hardhat export-ABIs --contract-list contractList.json
 ```
 
-The `contractList.json` file should contain an array of contract names.
+The `contractList.json` file should contain an array of contract names, including fully qualified name.
 
 ```json
 [
   "Contract1",
   "Contract2",
-  "Contract3",
+  "contracts/Contract3.sol:Contract3",
   "Contract4",
   "Contract5",
 ]
