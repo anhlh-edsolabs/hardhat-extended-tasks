@@ -2,6 +2,10 @@ const path = require("path");
 const fs = require("fs");
 const chalk = require("chalk");
 const { log, error } = require("console");
+const {
+    isFullyQualifiedName,
+    parseFullyQualifiedName,
+} = require("hardhat/utils/contract-names");
 
 const ABI_OUTPUT_DIR = "./ABIs";
 const ABI_OUTPUT_EXTENSION = "_ABI.json";
@@ -41,8 +45,6 @@ async function prepareDataFile(dataRootPath, fileName, loadContent = false) {
             // Initialize an empty object as data content
             dataContent = {};
         }
-        // log("Path:", dataFilePath);
-        // log("Data:", dataContent);
 
         return { dataFilePath, dataContent };
     } else {
@@ -81,20 +83,26 @@ async function writeDataConcurrently(contractFiles) {
     await handlePromises(promises);
 }
 
-async function handleFile(file) {
-    const contractName = path.basename(file, ".sol");
+async function handleFile(fileName) {
     try {
-        const artifact = await artifacts.readArtifact(contractName);
-        const filename = contractName + ABI_OUTPUT_EXTENSION;
-        const { dataFilePath } = await prepareDataFile(
-            ABI_OUTPUT_DIR,
-            filename,
-        );
-        await writeDataFile(dataFilePath, artifact.abi);
+        const contractName = isFullyQualifiedName(fileName)
+            ? parseFullyQualifiedName(fileName).contractName
+            : fileName;
+        const artifact = await artifacts.readArtifact(fileName);
+
+        // check and print out only the contracts with non-empty bytecode
+        if (hre.ethers.getBytes(artifact.bytecode).length > 0) {
+            const filename = contractName + ABI_OUTPUT_EXTENSION;
+            const { dataFilePath } = await prepareDataFile(
+                ABI_OUTPUT_DIR,
+                filename,
+            );
+            await writeDataFile(dataFilePath, artifact.abi);
+        }
     } catch (err) {
         error(
             chalk.bold.red(
-                `Error exporting ABI for contract ${contractName}: ${err.message}`,
+                `Error exporting ABI for contract ${fileName}: ${err.message}`,
             ),
         );
         return null;

@@ -3,6 +3,11 @@ const path = require("path");
 const chalk = require("chalk");
 const { log, error } = require("console");
 const { task, types } = require("hardhat/config");
+const {
+    parseName,
+    isFullyQualifiedName,
+    parseFullyQualifiedName,
+} = require("hardhat/utils/contract-names");
 const { Utils } = require("./utils");
 
 const { TASK_EXPORT_ABIS } = require("./tasks");
@@ -37,25 +42,31 @@ task(TASK_EXPORT_ABIS, "Exports the ABIs of the contracts")
         // If a JSON file is provided, read the contract names from the file
         if (taskArgs.contractList) {
             try {
-                const contractsFromFile = JSON.parse(fs.readFileSync(taskArgs.contractList, 'utf8'));
+                const contractsFromFile = JSON.parse(
+                    fs.readFileSync(taskArgs.contractList, "utf8"),
+                );
                 onlyContracts = [...onlyContracts, ...contractsFromFile];
             } catch (err) {
-                error(chalk.bold.red(`Error reading contracts from JSON file: ${err.message}`));
+                error(
+                    chalk.bold.red(
+                        `Error reading contracts from JSON file: ${err.message}`,
+                    ),
+                );
                 return;
             }
         }
 
-        const filteredContractFiles =
-            onlyContracts.length > 0
-                ? allContractFiles.filter((file) =>
-                      onlyContracts.includes(path.basename(file, ".sol")),
-                  )
-                : allContractFiles;
+        // extract contract name from the allContractFiles array
+        const allContractNames = allContractFiles.map((file) => {
+            return path.basename(file, ".sol");
+        })
 
-        if (filteredContractFiles.length === 0) {
+        const filteredContractNames = onlyContracts.length > 0 ? onlyContracts : allContractNames
+
+        if (filteredContractNames.length === 0) {
             error(chalk.bold.red("No contracts found to export ABIs"));
             return;
         }
 
-        await Utils.writeDataConcurrently(filteredContractFiles);
+        await Utils.writeDataConcurrently(filteredContractNames);
     });
